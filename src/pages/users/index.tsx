@@ -5,11 +5,23 @@ import Pagination from '../../components/Pagination/index'
 import Sidebar from '../../components/SideBar/index'
 import Link from 'next/link'
 
+import { useQuery } from 'react-query'
+
 export default function UserList() {
+    const query = useQuery('users', async () => {
+        const response = await fetch('http://localhost:3000/api/users')
+        const data = await response.json()
+
+        return data
+    })
+
+
     const isWideVersion = useBreakpointValue({
         base:false,
         lg:true
     })
+
+    console.log(query)
 
     return (
         <Box>
